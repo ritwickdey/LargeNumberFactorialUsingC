@@ -37,12 +37,13 @@ char* multiply(char* num1, char* num2)
     int shifter = 0;
     char *val =  (char *)calloc(sizeof(char),n1+n2+1);
 
-    for(int j=n2-1;j>=0;j--)
+    int i,j;
+    for(j=n2-1;j>=0;j--)
     {
         int k = n1+n2 -1 - shifter;
         int multipler = num2[j] - '0';
 
-        for(int i=n1-1;i>=0;i--)
+        for(i=n1-1;i>=0;i--)
         {
             int temp = (multipler * (num1[i] - '0')) + (val[k] == '\0'? 0 : val[k] - '0');
             val[k--] =  temp%10 + '0';
@@ -55,16 +56,16 @@ char* multiply(char* num1, char* num2)
         shifter++;
     }
 
-    int i=0;
+    int nonNullIndex=0;
 
-    while(val[i] == '0' || val[i] == '\0') i++;
+    while(val[nonNullIndex] == '0' || val[nonNullIndex] == '\0') nonNullIndex++;
 
-    return val+i;
+    return val+nonNullIndex;
 
 }
 
 
-char* convertToString(long int num)
+char* convertToString(int num)
 {
     long int n = num;
     int i=0,j=0;
@@ -87,10 +88,11 @@ char* convertToString(long int num)
 
 }
 
-char* factorial(long int n)
+char* factorial(int n)
 {
     char* result = "1";
-    for(long int i=1;i<=n;i++)
+    int i;
+    for(i=1;i<=n;i++)
     {
         result = multiply(result,convertToString(i));
     }
@@ -100,12 +102,12 @@ char* factorial(long int n)
 
 int main()
 {
-    long int num = 0;
+    int num = 0;
 
     printf("Enter number for factorial: ");
-    scanf("%ld", &num);
+    scanf("%d", &num);
 
-    printf("\nfactorial of %ld = %ld! = %s\n\n", num,num,factorial(num));
+    printf("\nfactorial of %d = %d! = %s\n\n", num,num,factorial(num));
 
 
     return 0;
